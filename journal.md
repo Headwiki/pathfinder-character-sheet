@@ -1,3 +1,4 @@
+# Log
 Initiated project on github.com
 Cloned project locally
 Created 'dev' branch
