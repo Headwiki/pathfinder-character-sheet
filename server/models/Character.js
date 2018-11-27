@@ -5,7 +5,7 @@ let CharacterSchema = new mongoose.Schema(
     name: String,
     gender: {
       type: String,
-      enum: ["Male", "Female"]
+      enum: ["Male", "Female", "Other"]
     },
     age: Number,
     size: String,
