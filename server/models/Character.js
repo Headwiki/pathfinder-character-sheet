@@ -17,17 +17,63 @@ let CharacterSchema = new mongoose.Schema(
       type: String,
       enum: ["LG", "LN", "LE", "NG", "NN", "NE", "CG", "CN", "CE"]
     },
-    level: Number,
+    totalLevel: Number,
     race: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Race'
     },
-    class: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Class'
-    },
+    classes: [
+      {
+        class: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Class'
+        },
+        level: Number
+      }
+    ],
     deity: String,
     homeland: String,
+    abilityScores: {
+      strength: {
+        abilityModifier: Number,
+        tempAdjustment: Number,
+        tempModifier: Number
+      },
+      dexterity: {
+        abilityModifier: Number,
+        tempAdjustment: Number,
+        tempModifier: Number
+      },
+      constitution: {
+        abilityModifier: Number,
+        tempAdjustment: Number,
+        tempModifier: Number
+      },
+      intelligence: {
+        abilityModifier: Number,
+        tempAdjustment: Number,
+        tempModifier: Number
+      },
+      wisdom: {
+        abilityModifier: Number,
+        tempAdjustment: Number,
+        tempModifier: Number
+      },
+      charisma: {
+        abilityModifier: Number,
+        tempAdjustment: Number,
+        tempModifier: Number
+      }
+    },
+    hp: {
+      total: Number,
+      current: Number,
+      dr: Number
+    },
+    initiative: {
+      dexModifier: Number,
+      miscModifier: Number
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
