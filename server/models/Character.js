@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
+const common = require('./common')
 
 let CharacterSchema = new mongoose.Schema(
   {
     name: String,
     gender: {
       type: String,
-      enum: ["Male", "Female"]
+      enum: ["Male", "Female", "Other"]
     },
     age: Number,
     size: String,
@@ -34,36 +35,12 @@ let CharacterSchema = new mongoose.Schema(
     deity: String,
     homeland: String,
     abilityScores: {
-      strength: {
-        abilityModifier: Number,
-        tempAdjustment: Number,
-        tempModifier: Number
-      },
-      dexterity: {
-        abilityModifier: Number,
-        tempAdjustment: Number,
-        tempModifier: Number
-      },
-      constitution: {
-        abilityModifier: Number,
-        tempAdjustment: Number,
-        tempModifier: Number
-      },
-      intelligence: {
-        abilityModifier: Number,
-        tempAdjustment: Number,
-        tempModifier: Number
-      },
-      wisdom: {
-        abilityModifier: Number,
-        tempAdjustment: Number,
-        tempModifier: Number
-      },
-      charisma: {
-        abilityModifier: Number,
-        tempAdjustment: Number,
-        tempModifier: Number
-      }
+      strength: common.abilityScore,
+      dexterity: common.abilityScore,
+      constitution: common.abilityScore,
+      intelligence: common.abilityScore,
+      wisdom: common.abilityScore,
+      charisma: common.abilityScore
     },
     hp: {
       total: Number,
