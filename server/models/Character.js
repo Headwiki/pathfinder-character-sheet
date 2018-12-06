@@ -51,6 +51,44 @@ let CharacterSchema = new mongoose.Schema(
       dexModifier: Number,
       miscModifier: Number
     },
+    speed: {
+      base: Number,
+      withArmor: Number,
+      fly: Number,
+      swim: Number,
+      climb: Number,
+      burrow: Number,
+      tempModifier: Number
+    },
+    armorClass: {
+      armorBonus: Number,
+      shieldBonus: Number,
+      dexModifier: Number,
+      sizeModifier: Number,
+      naturalArmor: Number,
+      deflectionModifier: Number,
+      miscModifier: Number,
+      touch: Number,
+      flatFooted: Number
+    },
+    savingThrows: {
+      fortitude: common.saveThrow,
+      reflex: common.saveThrow,
+      will: common.saveThrow
+    },
+    baseAttackBonus: Number,
+    spellResistance: Number,
+    cmb: {
+      baseAttackBonus: Number,
+      strengthModifier: Number,
+      sizeModifier: Number
+    },
+    cmd: {
+      baseAttackBonus: Number,
+      strengthModifier: Number,
+      dexterityModifier: Number,
+      sizeModifier: Number
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
@@ -59,17 +97,3 @@ let CharacterSchema = new mongoose.Schema(
 )
 
 module.exports = mongoose.model('Character', CharacterSchema)
-
-/*
-TODO:
-  Implement support for mulitclasses
-    classes: [
-      {
-        class: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Class'
-        },
-        level: Number
-      }
-    ]
-*/

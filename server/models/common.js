@@ -6,4 +6,12 @@ const abilityScore = {
     tempModifier: Number
 }
 
-module.exports = { abilityScore }
+const saveThrow = {
+    baseSave: Number,
+    abilityModifier: Number,
+    magicModifier: Number,
+    miscModifier: Number,
+    temporaryModifier: Number
+}
+
+module.exports = { abilityScore, saveThrow }
