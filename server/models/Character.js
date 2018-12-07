@@ -96,4 +96,26 @@ let CharacterSchema = new mongoose.Schema(
   }
 )
 
+// Virtual attributes to calculate total stat values
+/*
+Object.keys(this.abilityScores).forEach((abilityScore) => {
+          CharacterSchema
+            .virtual(abilityScore + 'Total')
+            .get(() => {
+              this.abilityScores[abilityScore].baseScore +
+              this.abilityScores[abilityScore].abilityModifier +
+              this.abilityScores[abilityScore].tempAdjustment +
+              this.abilityScores[abilityScore].tempModifier
+            })
+})
+*/
+CharacterSchema
+  .virtual('strengthTotal')
+  .get(() => {
+    this.abilityScores.strength.baseScore +
+    this.abilityScores.strength.abilityModifier +
+    this.abilityScores.strength.tempAdjustment +
+    this.abilityScores.strength.tempModifier
+  })
+
 module.exports = mongoose.model('Character', CharacterSchema)
