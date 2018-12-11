@@ -21,10 +21,10 @@ let char = new Character({
             tempModifier: 2
         },
         intelligence: {
-            baseScore: 3,
-            abilityModifier: 4,
-            tempAdjustment: 5,
-            tempModifier: 6
+            baseScore: 7,
+            abilityModifier: 0,
+            tempAdjustment: 0,
+            tempModifier: 0
         },
         wisdom: {
             baseScore: 7,
@@ -38,7 +38,31 @@ let char = new Character({
             tempAdjustment: 3,
             tempModifier: 3
         }
-      }
+      },
+      savingThrows: {
+          will: {
+            baseSave: 0,
+            magicModifier: 2,
+            miscModifier: 3,
+            temporaryModifier: 4
+          }
+      },
+      armorClass: {
+        armorBonus: 0,
+        shieldBonus: 1,
+        dexModifier: 2,
+        sizeModifier: 3,
+        naturalArmor: 4,
+        deflectionModifier: 5,
+        miscModifier: 6,
+        touch: 7,
+        flatFooted: 8
+      },
 })
 
-console.log(char.strengthTotal)
+console.log('Ability Score Strength: ' + char.getAbilityScore('strength') + ', modifier: ' + char.getAbilityModifier('strength'))
+console.log('Ability Score Constitution: ' + char.getAbilityScore('constitution') + ', modifier: ' + char.getAbilityModifier('constitution'))
+console.log('Ability Score Intelligence: ' + char.getAbilityScore('intelligence') + ', modifier: ' + char.getAbilityModifier('intelligence'))
+console.log('Ability Score Wisdom: ' + char.getAbilityScore('wisdom') + ', modifier: ' + char.getAbilityModifier('wisdom'))
+console.log('Saving throw Will: ' + char.getSavingThrow('will'))
+console.log('Armor Class: ' + char.getArmorClass())
