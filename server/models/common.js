@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 
 const abilityScore = {
     baseScore: Number,
-    abilityModifier: Number,
     tempAdjustment: Number,
     tempModifier: Number
 }
