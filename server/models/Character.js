@@ -53,10 +53,7 @@ let CharacterSchema = new mongoose.Schema(
       current: Number,
       dr: Number
     },
-    initiative: {
-      dexModifier: Number,
-      miscModifier: Number
-    },
+    initiative: Number,
     speed: {
       base: Number,
       withArmor: Number,
@@ -133,8 +130,8 @@ CharacterSchema.method('getArmorClass', function() {
   return 10 + 
     this.armorClass.armorBonus +
     this.armorClass.shieldBonus +
-    this.armorClass.dexModifier +
-    this.armorClass.sizeModifier +
+    this.getAbilityModifier('dexterity') +
+    this.sizeModifiers.normal +
     this.armorClass.naturalArmor +
     this.armorClass.deflectionModifier +
     this.armorClass.miscModifier
