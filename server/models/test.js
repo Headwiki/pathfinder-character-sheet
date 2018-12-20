@@ -23,38 +23,77 @@ let characterClass = new CharacterClass({
 
 let userId, raceId, characterClassId = "";
 
-let preDataPromise = new Promise((resolve, reject) => {
-    user.save((err, obj) => {
+let createDummyUserPromise = new Promise((resolve, reject) => {
+    User.findOne({ username: "Headwiki" }, '_id', function(err, resultUser) {
         if (err) reject(err)
-        else {
-            console.log('Saved user: ' + obj._id)
-            userId = obj._id
-        }
-    })
 
-    race.save((err, obj) => {
-        if (err) reject(err)
-        else {
-            console.log('Saved race: ' + obj._id)
-            raceId = obj._id
-        }
-    })
-
-    characterClass.save((err, obj) => {
-        if (err) reject(err)
-        else {
-            console.log('Saved characterClass: ' + obj._id)
-            characterClassId = obj._id
+        // If not found, create user
+        if (!resultUser) {
+            user.save((err, obj) => {
+                if (err) reject(err)
+                else {
+                    console.log('Saved user: ' + obj._id)
+                    userId = obj._id
+                    resolve()
+                }
+            })
+        } else {    // User already exists, return user id
+            console.log('Fetched user: ' + resultUser._id)
+            userId = resultUser._id
             resolve()
         }
     })
 })
 
+let createDummyRacePromise = new Promise((resolve, reject) => {
+    Race.findOne({ name: "Human" }, '_id', function(err, resultRace) {
+        if (err) reject(err)
 
-
-preDataPromise.then(() => {
+        // If not found, create user
+        if (!resultRace) {
+            race.save((err, obj) => {
+                if (err) reject(err)
+                else {
+                    console.log('Saved race: ' + obj._id)
+                    raceId = obj._id
+                    resolve()
+                }
+            })
+        } else {    // User already exists, return user id
+            console.log('Fetched race: ' + resultRace._id)
+            raceId = resultRace._id
+            resolve()
+        }
+    })
     
-    console.log('userId: ' + userId)
+})
+
+let createDummyCharacterClassPromise = new Promise((resolve, reject) => {
+    CharacterClass.findOne({ name: "Cleric" }, '_id', function(err, resultCharacterClass) {
+        if (err) reject(err)
+
+        // If not found, create user
+        if (!resultCharacterClass) {
+            characterClass.save((err, obj) => {
+                if (err) reject(err)
+                else {
+                    console.log('Saved characterClass: ' + obj._id)
+                    characterClassId = obj._id
+                    resolve()
+                }
+            })
+        } else {    // User already exists, return user id
+            console.log('Fetched characterClass: ' + resultCharacterClass._id)
+            characterClassId = resultCharacterClass._id
+            resolve()
+        }
+    })
+    
+})
+
+
+Promise.all([createDummyCharacterClassPromise, createDummyRacePromise, createDummyUserPromise]).then(() => {
+    
     let char = new Character({
         name: "Lia Sarenwell",
         gender: "Female",
@@ -170,13 +209,26 @@ preDataPromise.then(() => {
         owner: mongoose.Types.ObjectId(userId)
     })
 
-    char.save((err, obj) => {
-        if (err) reject(err)
-        else {
-            console.log('Saved character: ' + obj._id)
+    Character.findOne({ name: "Lia Sarenwell" }, function(err, resultCharacter) {
+        if (err) console.log('Error: ' + err)
+
+        // If not found, create user
+        if (!resultCharacter) {
+            char.save((err, obj) => {
+                if (err) reject(err)
+                else {
+                    console.log('Saved character: ' + obj._id)
+                    console.log('Saved character: ' + obj)
+                }
+            })
+        } else {    // User already exists
+            console.log('Fetched Character: ' + resultCharacter)
         }
     })
+    return 0;
 })
+
+
 
     /* 
     console.log('Ability Score Strength: ' + char.getAbilityScore('strength') + ', modifier: ' + char.getAbilityModifier('strength'))
