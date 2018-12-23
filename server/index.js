@@ -1,11 +1,14 @@
+require('dotenv').config()
+const express = require('express')
+const app = express()
 const mongoose = require('mongoose')
 //const ObjectId = require('mongodb').ObjectID;
-const Character = require('./Character')
-const User = require('./User')
-const Race = require('./Race')
-const CharacterClass = require('./CharacterClass')
+const Character = require('./models/Character')
+const User = require('./models/User')
+const Race = require('./models/Race')
+const CharacterClass = require('./models/CharacterClass')
 
-mongoose.connect('mongodb://0.0.0.0/pathfinder', { useNewUrlParser: true }, function (err) {
+mongoose.connect('mongodb://mongodb/pathfinder', { useNewUrlParser: true }, function (err) {
     if (err) { console.log(err) }
 });
 
@@ -229,6 +232,10 @@ Promise.all([createDummyCharacterClassPromise, createDummyRacePromise, createDum
 })
 
 
+
+app.get('/', (req, res) => res.send('Hello World!'))
+
+app.listen(process.env.APP_SERVER_PORT, () => console.log(`Example app listening on port ${process.env.APP_SERVER_PORT}!`))
 
     /* 
     console.log('Ability Score Strength: ' + char.getAbilityScore('strength') + ', modifier: ' + char.getAbilityModifier('strength'))

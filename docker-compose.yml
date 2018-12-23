@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+
+## Setup server container ##
+  server:
+    build: ./server
+    container_name: "pathfinder-server"
+    expose:
+      - ${APP_SERVER_PORT}
+    environment:
+      API_HOST: ${API_HOST}
+      APP_SERVER_PORT: ${APP_SERVER_PORT}
+    ports:
+      - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
+    volumes:
+      - ./server/models:/srv/app/pathfinder-server/models
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    command: npm run start 
+
+
+## Setup client container ##
+  client:
+    build: ./client
+    container_name: "pathfinder-client"
+    expose:
+      - ${REACT_APP_PORT}
+    environment:
+      - REACT_APP_PORT=${REACT_APP_PORT}s
+    ports:
+      - ${REACT_APP_PORT}:${REACT_APP_PORT}
+    volumes:
+      - ./client/src:/srv/app/pathfinder-client/src
+      - ./client/public:/srv/app/pathfinder-client/public
+    links:
+      - server
+    command: npm run start
+
+
+## Setup mongodb container ##
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
