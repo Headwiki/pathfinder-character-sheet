@@ -239,7 +239,8 @@ Promise.all([createDummyCharacterClassPromise, createDummyRacePromise, createDum
 
 
 
-app.get('/', (req, res) => res.send('Hello World!'))
+//app.get('/', (req, res) => res.send('Hello World!'))
+app.use('/api', require('./routes'))
 
 app.listen(process.env.APP_SERVER_PORT, () => console.log(`Example app listening on port ${process.env.APP_SERVER_PORT}!`))
 
