@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
+const cors = require('cors');
 const mongoose = require('mongoose')
 //const ObjectId = require('mongodb').ObjectID;
 const Character = require('./models/Character')
@@ -241,7 +242,7 @@ Promise.all([createDummyCharacterClassPromise, createDummyRacePromise, createDum
 
 //app.get('/', (req, res) => res.send('Hello World!'))
 app.use('/api', require('./routes'))
-
+app.use(cors());
 app.listen(process.env.APP_SERVER_PORT, () => console.log(`Example app listening on port ${process.env.APP_SERVER_PORT}!`))
 
     /* 
