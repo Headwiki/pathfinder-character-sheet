@@ -8,9 +8,15 @@ const User = require('./models/User')
 const Race = require('./models/Race')
 const CharacterClass = require('./models/CharacterClass')
 
-mongoose.connect('mongodb://mongodb/pathfinder', { useNewUrlParser: true }, function (err) {
-    if (err) { console.log(err) }
-});
+const connectWithRetry = function() {
+    return mongoose.connect('mongodb://mongodb:27017/pathfinder', { useNewUrlParser: true }, function(err) {
+      if (err) {
+        console.error('Failed to connect to mongo on startup - retrying in 10 sec', err);
+        setTimeout(connectWithRetry, 10000);
+      }
+    });
+  };
+connectWithRetry();
 
 let user = new User({
     username: "Headwiki"
