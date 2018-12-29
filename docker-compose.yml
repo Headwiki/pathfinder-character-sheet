@@ -14,6 +14,8 @@ services:
       - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
     volumes:
       - ./server/models:/srv/app/pathfinder-server/models
+    links:
+      - mongodb
     depends_on:
       - mongodb
     command: npm run start 
@@ -32,7 +34,7 @@ services:
     volumes:
       - ./client/src:/srv/app/pathfinder-client/src
       - ./client/public:/srv/app/pathfinder-client/public
-    depends_on:
+    links:
       - server
     command: npm run start
 
@@ -43,10 +45,10 @@ services:
     container_name: "mongodb"
     environment:
       - MONGO_DATA_DIR=/data/db
-      - MONGO_LOG_DIR=/data/log/mongod.log
+      - MONGO_LOG_DIR=/dev/null
     volumes:
       - ./data/db:/data/db
       - ./data/log:/data/log
     ports:
       - 27017:27017
-    command: mongod --smallfiles --logpath=/data/log/mongod.log # --quiet
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
