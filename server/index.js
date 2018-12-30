@@ -3,11 +3,16 @@ const express = require('express')
 const app = express()
 const cors = require('cors');
 const mongoose = require('mongoose')
-//const ObjectId = require('mongodb').ObjectID;
 const Character = require('./models/Character')
 const User = require('./models/User')
 const Race = require('./models/Race')
 const CharacterClass = require('./models/CharacterClass')
+
+app.use(cors());
+
+app.use('/api', require('./routes'))
+
+app.listen(process.env.APP_SERVER_PORT, () => console.log(`Example app listening on port ${process.env.APP_SERVER_PORT}!`))
 
 const connectWithRetry = function() {
     return mongoose.connect('mongodb://mongodb:27017/pathfinder', { useNewUrlParser: true }, function(err) {
@@ -237,19 +242,3 @@ Promise.all([createDummyCharacterClassPromise, createDummyRacePromise, createDum
     })
     return 0;
 })
-
-
-
-//app.get('/', (req, res) => res.send('Hello World!'))
-app.use('/api', require('./routes'))
-app.use(cors());
-app.listen(process.env.APP_SERVER_PORT, () => console.log(`Example app listening on port ${process.env.APP_SERVER_PORT}!`))
-
-    /* 
-    console.log('Ability Score Strength: ' + char.getAbilityScore('strength') + ', modifier: ' + char.getAbilityModifier('strength'))
-    console.log('Ability Score Constitution: ' + char.getAbilityScore('constitution') + ', modifier: ' + char.getAbilityModifier('constitution'))
-    console.log('Ability Score Intelligence: ' + char.getAbilityScore('intelligence') + ', modifier: ' + char.getAbilityModifier('intelligence'))
-    console.log('Ability Score Wisdom: ' + char.getAbilityScore('wisdom') + ', modifier: ' + char.getAbilityModifier('wisdom'))
-    console.log('Ability Score Charisma: ' + char.getAbilityScore('charisma') + ', modifier: ' + char.getAbilityModifier('charisma'))
-console.log('Saving throw Will: ' + char.getSavingThrow('will'))
-console.log('Armor Class: ' + char.getArmorClass()) */

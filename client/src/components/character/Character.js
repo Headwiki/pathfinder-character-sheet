@@ -10,20 +10,20 @@ class Character extends Component {
 
 
 componentDidMount() {
-    fetch('http://server:5000/api/character/byname/Lia%20Sarenwell')
-      .then(results => {
-          return results.json();
-      })
+    fetch('http://localhost:5000/api/character/byname/Lia%20Sarenwell')
+    .then(results => {
+        return results.json();
+    })
       .then(data => {
-          this.setState(data)
+          this.setState({ character: data })
       })
 }
 
 render() {
     return (
-        <div>
-            { !this.state.character ? this.state.character : null }
-        </div>
+        <pre>
+            { this.state.character ? JSON.stringify(this.state.character, null, 2)  : "null" }
+        </pre>
     )
 }
 }
