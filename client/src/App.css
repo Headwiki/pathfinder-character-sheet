@@ -26,3 +26,27 @@
     transform: rotate(360deg);
   }
 }
+
+.strength {
+  color: orange;
+}
+
+.dexterity {
+  color: green;
+}
+
+.intelligence {
+  color: blue;
+}
+
+.constitution {
+  color: red;
+}
+
+.wisdom {
+  color: purple
+}
+
+.charisma {
+  color: yellow;
+}
