@@ -5,3 +5,6 @@ Created 'dev' branch
 Created a 'server' folder and ran 'npm init' from folder  
 (Made sure create-react-app was installed, 'npm i create-react-app -g')  
 Created a 'client' folder and ran 'create-react-app .' from folder
+
+### dev-vue branch
+npm install -g vue-cli

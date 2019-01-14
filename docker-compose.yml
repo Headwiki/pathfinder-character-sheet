@@ -26,17 +26,16 @@ services:
     build: ./client
     container_name: "pathfinder-client"
     expose:
-      - ${REACT_APP_PORT}
+      - ${VUE_APP_PORT}
     environment:
-      - REACT_APP_PORT=${REACT_APP_PORT}s
+      - VUE_APP_PORT=${VUE_APP_PORT}
     ports:
-      - ${REACT_APP_PORT}:${REACT_APP_PORT}
+      - ${VUE_APP_PORT}:${VUE_APP_PORT}
     volumes:
       - ./client/src:/srv/app/pathfinder-client/src
-      - ./client/public:/srv/app/pathfinder-client/public
     links:
       - server
-    command: npm run start
+    command: npm run dev
 
 
 ## Setup mongodb container ##
