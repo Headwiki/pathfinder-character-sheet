@@ -1,33 +1,29 @@
 <template>
   <div>
     <h1>Character</h1>
-    <div>{{ character }}</div>
+    <div>
+      <pre>
+        {{ character }}
+      </pre>
+    </div>
   </div>
 </template>
 <script>
-const axios = require('axios')
-const API_URL = 'http://localhost:5000/api/character/byname/Lia%20Sarenwell'
+import CharacterService from '@/services/CharacterService'
 export default {
-  name: 'Character',
+  name: 'character',
   data: () => ({
-    error: '',
-    character: 'a'
+    character: ''
   }),
   mounted () {
-    axios
-      .get(API_URL)
-      .then(response => {
-        response.json()
-      })
-      .then(result => {
-        if (!result) {
-          this.character = 'empty'
-        } else {
-          this.character = result
-        }
-      })
+    this.getCharacter()
   },
-  methods: {}
+  methods: {
+    async getCharacter () {
+      const response = await CharacterService.fetchCharacter()
+      this.character = response.data
+    }
+  }
 }
 </script>
 
