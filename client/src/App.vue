@@ -28,8 +28,9 @@ body {
 }
 
 main {
-  text-align: center;
+  text-align: left;
   margin-top: 40px;
+  padding-left: 20px;
 }
 
 header {
