@@ -31,6 +31,7 @@ main {
   text-align: left;
   margin-top: 40px;
   padding-left: 20px;
+  padding-right: 20px;
 }
 
 header {
